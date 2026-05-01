@@ -1,0 +1,43 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "MARC-10 (Hermes Agent) Conversation",
+        "description": "Connect to a Hermes Agent api_server endpoint. The agent's full skills, tools, and memory will respond to Assist conversations.",
+        "data": {
+          "endpoint": "Hermes endpoint URL",
+          "api_key": "API_SERVER_KEY (Bearer token)",
+          "model": "Model id (default: hermes-agent)",
+          "timeout": "Request timeout (seconds)",
+          "strip_emoji": "Strip emoji from replies (recommended for TTS)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach Hermes endpoint. Check the URL and that the api_server platform is running.",
+      "invalid_auth": "API key rejected by Hermes (HTTP 401). Check API_SERVER_KEY."
+    },
+    "abort": {
+      "already_configured": "This Hermes endpoint is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "MARC-10 Settings",
+        "description": "Update connection settings for MARC-10. The integration will reload automatically.",
+        "data": {
+          "endpoint": "Hermes endpoint URL",
+          "api_key": "API_SERVER_KEY (Bearer token)",
+          "model": "Model id",
+          "timeout": "Request timeout (seconds)",
+          "strip_emoji": "Strip emoji from replies"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach Hermes endpoint.",
+      "invalid_auth": "API key rejected by Hermes."
+    }
+  }
+}

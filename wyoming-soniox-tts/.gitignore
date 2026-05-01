@@ -1,0 +1,8 @@
+# Created BEFORE first git add — see wyoming-cloud-bridge/references/gitignore-recovery.md
+venv/
+__pycache__/
+*.pyc
+.env
+*.egg-info/
+build/
+dist/

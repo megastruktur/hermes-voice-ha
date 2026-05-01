@@ -1,0 +1,11 @@
+{
+  "domain": "hermes_conversation",
+  "name": "MARC-10 (Hermes Agent) Conversation",
+  "version": "0.1.0",
+  "documentation": "https://github.com/megastruktur/marc-voice",
+  "issue_tracker": "https://github.com/megastruktur/marc-voice/issues",
+  "requirements": [],
+  "codeowners": ["@megastruktur"],
+  "config_flow": true,
+  "integration_type": "service"
+}

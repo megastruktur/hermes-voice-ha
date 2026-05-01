@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual envs
+venv/
+.venv/
+env/
+
+# Local secrets / overrides
+.env
+.env.local
+*.secret
+
+# Editor / OS
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Test artefacts
+/tmp/
+*.wav
+*.wav.bak
+*.mp3
+
+# Internal docs (not for public repo — kept locally for project history)
+PLAN.md
+PROGRESS.md
+
+# Third-party tooling state
+.omc/
+.cursor/
+.aider*
+
+# Hermes / agent metadata
+.hermes/
