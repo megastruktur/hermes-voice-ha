@@ -7,7 +7,7 @@ Wants=network-online.target
 Type=simple
 EnvironmentFile=%h/.hermes/.env
 WorkingDirectory=%h/projects/marc-voice/wyoming-soniox
-ExecStart=%h/projects/marc-voice/wyoming-soniox/venv/bin/python -m wyoming_soniox --uri tcp://0.0.0.0:10300
+ExecStart=%h/projects/marc-voice/wyoming-soniox/venv/bin/python -m wyoming_soniox --uri tcp://0.0.0.0:10300 --max-endpoint-delay-ms 1800
 Restart=on-failure
 RestartSec=5
 # Soniox key + small footprint; nothing else exotic.
