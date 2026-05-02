@@ -1,0 +1,32 @@
+# Soniox context.terms — domain vocabulary biasing for MARC voice
+# One term per line. Lines starting with # are ignored.
+# Total budget across all context fields: 8000 tokens / ~10000 chars.
+# See: https://soniox.com/docs/stt/concepts/context
+
+# === People & pets ===
+Фоши
+Foshi
+Несса
+Nessa
+Батон
+Олька
+Olga
+капитан
+
+# === Projects & products ===
+Cute Care
+Cute Care Agent
+CuteCare
+MARCO-10
+MARC-10
+Hermes
+Hermes Agent
+
+# === Tech / infra ===
+Litellm
+HomeAssistant
+Home Assistant
+Wyoming
+Soniox
+Anthropic
+Claude

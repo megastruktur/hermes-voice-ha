@@ -54,6 +54,23 @@ async def main() -> None:
         default=900,
         help="Soniox endpoint detection max delay in ms (500-3000, default: 900)",
     )
+    parser.add_argument(
+        "--terms",
+        default="",
+        help=(
+            "Soniox context.terms — domain vocabulary for biased recognition. "
+            "Semicolon-separated to allow commas inside terms. "
+            "Example: 'Foshi;MARCO-10;включи свет в гостиной'"
+        ),
+    )
+    parser.add_argument(
+        "--terms-file",
+        default=None,
+        help=(
+            "Path to a UTF-8 file with one term per line (lines starting with # ignored). "
+            "Loaded in addition to --terms."
+        ),
+    )
     parser.add_argument("--debug", action="store_true")
     args = parser.parse_args()
 
@@ -68,6 +85,23 @@ async def main() -> None:
         )
 
     language_hints = [s.strip() for s in args.language_hints.split(",") if s.strip()]
+
+    # Assemble context.terms from --terms (inline, ;-separated) and --terms-file.
+    context_terms: list[str] = []
+    if args.terms:
+        context_terms.extend(t.strip() for t in args.terms.split(";") if t.strip())
+    if args.terms_file:
+        from pathlib import Path
+        path = Path(args.terms_file).expanduser()
+        if not path.is_file():
+            raise SystemExit(f"--terms-file not found: {path}")
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#"):
+                context_terms.append(line)
+    # Deduplicate while preserving order.
+    seen: set[str] = set()
+    context_terms = [t for t in context_terms if not (t in seen or seen.add(t))]
 
     wyoming_info = Info(
         asr=[
@@ -99,11 +133,12 @@ async def main() -> None:
 
     server = AsyncServer.from_uri(args.uri)
     _LOGGER.info(
-        "Ready: %s | model=%s | hints=%s | endpoint_delay=%dms",
+        "Ready: %s | model=%s | hints=%s | endpoint_delay=%dms | terms=%d",
         args.uri,
         args.model,
         ",".join(language_hints),
         args.max_endpoint_delay_ms,
+        len(context_terms),
     )
 
     await server.run(
@@ -114,6 +149,7 @@ async def main() -> None:
             args.model,
             language_hints,
             args.max_endpoint_delay_ms,
+            context_terms,
         )
     )
 

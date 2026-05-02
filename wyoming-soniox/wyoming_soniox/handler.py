@@ -48,6 +48,7 @@ class SonioxHandler(AsyncEventHandler):
         model: str,
         language_hints: list[str],
         max_endpoint_delay_ms: int,
+        context_terms: list[str] | None = None,
         *args,
         **kwargs,
     ) -> None:
@@ -58,6 +59,7 @@ class SonioxHandler(AsyncEventHandler):
         self._model = model
         self._language_hints = language_hints
         self._max_endpoint_delay_ms = max_endpoint_delay_ms
+        self._context_terms = context_terms or []
 
         # Wyoming clients send arbitrary sample rates; Soniox config is fixed,
         # so we resample everything to 16 kHz mono s16le on the fly.
@@ -133,6 +135,8 @@ class SonioxHandler(AsyncEventHandler):
             "enable_endpoint_detection": True,
             "max_endpoint_delay_ms": self._max_endpoint_delay_ms,
         }
+        if self._context_terms:
+            config["context"] = {"terms": self._context_terms}
         await self._ws.send(json.dumps(config))
 
         self._reader_task = asyncio.create_task(self._read_soniox())
